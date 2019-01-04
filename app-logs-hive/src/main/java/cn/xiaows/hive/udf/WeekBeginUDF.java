@@ -1,10 +1,12 @@
 package cn.xiaows.hive.udf;
 
+import org.apache.hadoop.hive.ql.exec.UDF;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class WeekBeginUDF {
+public class WeekBeginUDF extends UDF {
 
     public long evaluate() {
         return DateUtils.getWeekBeginTime(new Date()).getTime();

@@ -1,10 +1,12 @@
 package cn.xiaows.hive.udf;
 
+import org.apache.hadoop.hive.ql.exec.UDF;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DayBeginUDF {
+public class DayBeginUDF extends UDF {
 
     public long evaluate() {
         return DateUtils.getDayBeginTime(new Date()).getTime();

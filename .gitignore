@@ -38,3 +38,10 @@ app-logs-common/target/
 app-logs-flume/target/
 app-logs-hive/target/
 app-logs-phone/target/
+
+/dubbo-provider/mvnw.cmd
+/dubbo-consumer/mvnw
+/dubbo-consumer/mvnw.cmd
+/dubbo-provider/.mvn/
+/dubbo-provider/mvnw
+/dubbo-consumer/.mvn/

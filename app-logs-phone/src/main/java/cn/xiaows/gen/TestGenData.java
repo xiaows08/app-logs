@@ -45,10 +45,10 @@ public class TestGenData {
     private static Long[] EventDurationSecsS = {new Long(25), new Long(67), new Long(45)};
 
     public static void test() {
-        ExecutorService pool = Executors.newFixedThreadPool(64);
-        for (int i = 0; i < 20; i++) {
+        // ExecutorService pool = Executors.newFixedThreadPool(64);
+        for (int i = 0; i < 2000; i++) {
             int a = i;
-            pool.execute(() -> {
+            // pool.execute(() -> {
                 AppLogger app = new AppLogger()
                         .setAppChannel(appChannels[random.nextInt(appChannels.length)])
                         .setAppPlatFrom(appPlatFroms[random.nextInt(appPlatFroms.length)])
@@ -74,14 +74,14 @@ public class TestGenData {
                 int status = HttpUtils.upload(json, url);
                 log.debug("Send {} log status: {}", a, status);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     System.out.println(e.getMessage());
                 }
-            });
+            // });
         }
-        pool.shutdown();
+        // pool.shutdown();
     }
 
     public static void main(String[] args) {

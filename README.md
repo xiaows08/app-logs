@@ -89,7 +89,7 @@ start-dfs.sh
 ---
 ### Flume
 - 配置 $FLUME_HOME/conf/kafka-c_hdfs-k.conf
-```properties
+```yaml
 # kafka Channel + HDFS sink(without sources)
 a1.channels = c1
 a1.sinks = k1
@@ -113,7 +113,7 @@ a1.sinks.k1.hdfs.rollCount = 100
 # HDFS 上的文件达到128M 生成一个文件
 a1.sinks.k1.hdfs.rollSize = 134217728
 # HDFS 上的文件达到10分钟生成一个文件
-a1.sinks.k1.hdfs.rollInterval = 60
+a1.sinks.k1.hdfs.rollInterval = 600
 
 ```
 
@@ -153,23 +153,19 @@ scp -r flume-libs/* flume-1:/usr/local/flume-1.8.0-bin/lib/
 <configuration>
   <property>
     <name>javax.jdo.option.ConnectionURL</name>
-    <value>jdbc:mysql://XIAO-WS.local:3306/hivedb?createDatabaseIfNotExist=true</value>
-    <description>JDBC connect string for a JDBC metastore</description>
+    <value>jdbc:mysql://awx.local:3306/hivedb?createDatabaseIfNotExist=true</value>
   </property>
   <property>
     <name>javax.jdo.option.ConnectionDriverName</name>
     <value>com.mysql.jdbc.Driver</value>
-    <description>Driver class name for a JDBC metastore</description>
   </property>
   <property>
     <name>javax.jdo.option.ConnectionUserName</name>
     <value>root</value>
-    <description>username to use against metastore database</description>
   </property>
   <property>
     <name>javax.jdo.option.ConnectionPassword</name>
     <value>123456</value>
-    <description>password to use against metastore database</description>
   </property>
 </configuration>
 
@@ -212,13 +208,13 @@ create external table ext_app_log(
  row format serde 'org.apache.hive.hcatalog.data.JsonSerDe' stored as textfile;
 ```
 - 从 HDFS 中加载数据
-```bash
+```sql
 load data inpath '/flume/app-log/2018/12/28/15/06' into table ext_app_log partition(ym=201812, day=28, hm=1506);
 #load data inpath '/flume/app-log/${ym}/${day}/${hm}' into table t_access partition(dt=20170806);
 ```
-- 编写 `/root/crontab/hql/.load_data.hql` (隐藏文件)
+- 编写 `/root/crontab/.load_data.hql` (隐藏文件)
 ```sql
-load data inpath '/flume/app-log/${YEAR}/${MONTH}/${DAY}/${HM}' into table ext_app_log partition(ym=${YM}, day=${DAY}, hm=${HM});
+load data inpath '/flume/app-log/${YEAR}/${MONTH}/${DAY}/${HM}' into table app_logs.ext_app_log partition(ym=${YM}, day=${DAY}, hm=${HM});
 
 ```
 - 编写 crontab 执行的 shell 脚本 `/root/crontab/load_data.sh`
@@ -232,19 +228,19 @@ ym=`echo ${systime} | awk -F '-' '{print $1$2}'`
 day=`echo ${systime} | awk -F '-' '{print $3}'`
 hm=`echo ${systime} | awk -F '-' '{print $4}'`
 
-cp /root/crontab/hql/.load_data.hql /root/crontab/hql/load_data.hql
+cp /root/crontab/.load_data.hql /root/crontab/load_data.hql
 
-sed -i 's/${YEAR}/'${year}'/g' /root/crontab/hql/load_data.hql
-sed -i 's/${MONTH}/'${month}'/g' /root/crontab/hql/load_data.hql
-sed -i 's/${YM}/'${ym}'/g' /root/crontab/hql/load_data.hql
-sed -i 's/${DAY}/'${day}'/g' /root/crontab/hql/load_data.hql
-sed -i 's/${HM}/'${hm}'/g' /root/crontab/hql/load_data.hql
+sed -i 's/${YEAR}/'${year}'/g' /root/crontab/load_data.hql
+sed -i 's/${MONTH}/'${month}'/g' /root/crontab/load_data.hql
+sed -i 's/${YM}/'${ym}'/g' /root/crontab/load_data.hql
+sed -i 's/${DAY}/'${day}'/g' /root/crontab/load_data.hql
+sed -i 's/${HM}/'${hm}'/g' /root/crontab/load_data.hql
 echo '===========> load_data.sql creation has completed!'
 
 #执行 hive 的命令
 echo '===========> execute load_data.sql'
-hive -f /root/crontab/hql/load_data.hql
-#rm /root/crontab/hql//load_data.sql
+/usr/local/hive-1.2.2-bin/bin/hive -f /root/crontab/load_data.hql
+#rm /root/crontab/load_data.sql
 echo '===========> load_data.sql executed done!!!'
 
 #sqoop export
@@ -300,3 +296,8 @@ netstat -nultp | grep 10000
 
 ./bin/beeline -u jdbc:hive2://localhost:10000/
 ```
+
+
+---
+echo "Asia/Shanghai" > /etc/timezone
+dpkg-reconfigure -f nonineteractive tzdata
