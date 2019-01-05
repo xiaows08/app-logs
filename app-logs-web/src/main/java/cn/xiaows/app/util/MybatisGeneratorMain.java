@@ -10,15 +10,14 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeneratorDisplay {
+public class MybatisGeneratorMain {
 
 	public static void main(String[] args) throws Exception {
 		List<String> warnings = new ArrayList<>();
-		boolean overwrite = true;
 		ConfigurationParser cp = new ConfigurationParser(warnings);
-		Configuration config = cp.parseConfiguration(new File("app-logs-web/src/main/resources/generatorConfig.xml"));
-		// Configuration config = cp.parseConfiguration(ClassLoader.getSystemResourceAsStream("generatorConfig.xml"));
-		DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+		Configuration config = cp.parseConfiguration(new File("app-logs-web/src/main/resources/mybatis-generator.xml"));
+		// Configuration config = cp.parseConfiguration(ClassLoader.getSystemResourceAsStream("mybatis-generator.xml"));
+		DefaultShellCallback callback = new DefaultShellCallback(true);
 		MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
 		myBatisGenerator.generate(null);
 		for (String warning : warnings) {

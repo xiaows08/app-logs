@@ -8,25 +8,23 @@
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
 
-        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+        <!--<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
             <property name="mappers" value="cn.xiaows.app.util.MyMapper"/>
-        </plugin>
+        </plugin>-->
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/kaoqin_test"
+                        connectionURL="jdbc:mysql://localhost:3306/mydb"
                         userId="root"
-                        password="123456">
-        </jdbcConnection>
+                        password="123456"/>
 
         <!-- 对于生成的pojo所在包 -->
-        <javaModelGenerator targetPackage="cn.xiaows.app.entity" targetProject="app-logs-web/src/main/java"/>
+        <javaModelGenerator targetPackage="cn.xiaows.app.entity0" targetProject="src/main/java"/>
         <!-- 对于生成的mapper所在目录 -->
-        <sqlMapGenerator targetPackage="mapper" targetProject="app-logs-web/src/main/resources"/>
-        <!--<sqlMapGenerator targetPackage="cn.xiaows.app.dao" targetProject="app-logs-web/src/main/java"/>-->
+        <sqlMapGenerator targetPackage="mapper0" targetProject="src/main/resources"/>
         <!-- 配置mapper对应的java映射 -->
-        <javaClientGenerator targetPackage="cn.xiaows.app.dao" targetProject="app-logs-web/src/main/java" type="XMLMAPPER" />
+        <javaClientGenerator targetPackage="cn.xiaows.app.dao0" targetProject="src/main/java" type="XMLMAPPER" />
 
-		<table tableName="%"/>
+		<table tableName="%"/><!-- 所有表 -->
         <!--<table tableName="company" mapperName="CompanyDao"/>-->
         <!--<table tableName="user" mapperName="UserDao"/>-->
         <!--...-->

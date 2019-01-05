@@ -1,6 +1,6 @@
-package cn.xiaows.dubbo.api.entity;
+package cn.xiaows.dubbo.entity;
 
-public class AppLog {
+public class ExtAppLog {
     private String appchannel;
     private String appplatfrom;
     private String appversion;
@@ -19,6 +19,30 @@ public class AppLog {
     private String ym;
     private String day;
     private String hm;
+
+    @Override
+    public String toString() {
+        return "ExtAppLog{" +
+                "appchannel='" + appchannel + '\'' +
+                ", appplatfrom='" + appplatfrom + '\'' +
+                ", appversion='" + appversion + '\'' +
+                ", brand='" + brand + '\'' +
+                ", carrier='" + carrier + '\'' +
+                ", country='" + country + '\'' +
+                ", currentdate='" + currentdate + '\'' +
+                ", devicestyle='" + devicestyle + '\'' +
+                ", eventid='" + eventid + '\'' +
+                ", network='" + network + '\'' +
+                ", ostype='" + ostype + '\'' +
+                ", province='" + province + '\'' +
+                ", remoteaddr='" + remoteaddr + '\'' +
+                ", screensize='" + screensize + '\'' +
+                ", tenantid='" + tenantid + '\'' +
+                ", ym='" + ym + '\'' +
+                ", day='" + day + '\'' +
+                ", hm='" + hm + '\'' +
+                '}';
+    }
 
     public String getAppchannel() {
         return appchannel;

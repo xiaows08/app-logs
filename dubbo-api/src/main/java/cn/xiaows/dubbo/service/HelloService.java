@@ -1,4 +1,4 @@
-package cn.xiaows.dubbo.api;
+package cn.xiaows.dubbo.service;
 
 import cn.xiaows.logs.common.AppLogger;
 
