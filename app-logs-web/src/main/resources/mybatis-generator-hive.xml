@@ -13,19 +13,18 @@
         </plugin>-->
 
         <jdbcConnection driverClass="org.apache.hive.jdbc.HiveDriver"
-                        connectionURL="jdbc:hive2://172.22.1.10:10000/app_logs"
+                        connectionURL="jdbc:hive2://172.22.1.14:10000/mylog"
                         userId="root"
-                        password="123456">
-        </jdbcConnection>
+                        password=""/>
 
         <!-- 对于生成的pojo所在包 -->
-        <javaModelGenerator targetPackage="cn.xiaows.dubbo.entity" targetProject="dubbo-api/src/main/java"/>
+        <javaModelGenerator targetProject="dubbo-provider/src/main/java" targetPackage="cn.xiaows.applogs.dubbo.provider.entity"/>
         <!-- 对于生成的mapper所在目录 -->
-        <sqlMapGenerator targetPackage="mapper" targetProject="dubbo-provider/src/main/resources"/>
+        <sqlMapGenerator targetProject="dubbo-provider/src/main/resources" targetPackage="mapper"/>
         <!-- 配置mapper对应的java映射 -->
-        <javaClientGenerator targetPackage="cn.xiaows.applogs.dubbo.provider.dao" targetProject="dubbo-provider/src/main/java" type="XMLMAPPER" />
+        <javaClientGenerator targetProject="dubbo-provider/src/main/java" targetPackage="cn.xiaows.applogs.dubbo.provider.dao" type="XMLMAPPER"/>
 
-		<table tableName="%"/><!-- 所有表 -->
+        <table tableName="%"/><!-- 所有表 -->
         <!--<table tableName="user" mapperName="UserDao"/>-->
         <!--<table tableName="project" mapperName="ProjectDao"/>-->
         <!--...-->

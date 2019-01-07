@@ -9,4 +9,6 @@ import java.util.List;
 public interface ExtAppLogMapper {
 
     List<ExtAppLog> getAll();
+
+    int getCount();
 }

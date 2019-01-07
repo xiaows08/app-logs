@@ -11,10 +11,10 @@ spring:
       registry: zookeeper://172.22.1.12:2181
 
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/kaoqin_test
-#    driver-class-name: org.apache.hive.jdbc.HiveDriver
-#    url: jdbc:hive2://172.22.1.10:10000/app_logs
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/mydb
+    driver-class-name: org.apache.hive.jdbc.HiveDriver
+    url: jdbc:hive2://172.22.1.14:10000/mylog
     username: root
     password: 123456
 

@@ -15,18 +15,17 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/mydb"
                         userId="root"
-                        password="123456">
-        </jdbcConnection>
-
-        <!-- 对于生成的pojo所在包 -->
-        <javaModelGenerator targetPackage="cn.xiaows.app.entity" targetProject="app-logs-web/src/main/java"/>
+                        password="123456"/>
+        <!--cn.xiaows.applogs.dubbo.provider-->
+        <!-- 对于生成的entity所在包 -->
+        <javaModelGenerator targetPackage="cn.xiaows.applogs.dubbo.provider.entity" targetProject="dubbo-provider/src/main/java"/>
         <!-- 对于生成的mapper所在目录 -->
-        <sqlMapGenerator targetPackage="mapper" targetProject="app-logs-web/src/main/resources"/>
+        <sqlMapGenerator targetPackage="mapper" targetProject="dubbo-provider/src/main/resources"/>
         <!-- 配置mapper对应的java映射 -->
-        <javaClientGenerator targetPackage="cn.xiaows.app.dao" targetProject="app-logs-web/src/main/java" type="XMLMAPPER" />
+        <javaClientGenerator targetPackage="cn.xiaows.applogs.dubbo.provider.dao" targetProject="dubbo-provider/src/main/java" type="XMLMAPPER" />
 
-		<table tableName="%"/><!-- 所有表 -->
-        <!--<table tableName="user" mapperName="UserDao"/>-->
+		<!--<table tableName="%"/>&lt;!&ndash; 所有表 &ndash;&gt;-->
+        <table tableName="user" mapperName="UserDao"/>
         <!--<table tableName="project" mapperName="ProjectDao"/>-->
         <!--...-->
     </context>

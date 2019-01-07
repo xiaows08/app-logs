@@ -45,3 +45,4 @@ app-logs-phone/target/
 /dubbo-provider/.mvn/
 /dubbo-provider/mvnw
 /dubbo-consumer/.mvn/
+*.log

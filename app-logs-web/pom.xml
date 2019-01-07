@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>app-logs-web</name>
     <description>my service-web app</description>
+    <packaging>war</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -59,11 +60,11 @@
         </dependency>
 
         <!--mapper-->
-        <!--<dependency>
+        <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
             <version>1.2.4</version>
-        </dependency>-->
+        </dependency>
 
         <!--pagehelper-->
         <dependency>
@@ -91,6 +92,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
             <version>2.5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-jdbc</artifactId>
+            <version>2.3.2</version>
         </dependency>
     </dependencies>
 

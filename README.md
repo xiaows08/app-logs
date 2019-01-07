@@ -206,6 +206,7 @@ create external table ext_app_log(
   tenantId string
 ) partitioned by (ym string, day string, hm string)
  row format serde 'org.apache.hive.hcatalog.data.JsonSerDe' stored as textfile;
+ 
 ```
 - 从 HDFS 中加载数据
 ```sql
