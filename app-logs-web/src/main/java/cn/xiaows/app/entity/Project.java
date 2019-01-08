@@ -1,5 +1,11 @@
 package cn.xiaows.app.entity;
 
+/**
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:57
+ * @version: v1.0
+ */
 public class Project {
     /**
      *

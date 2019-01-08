@@ -13,6 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+/**
+ *
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:47
+ * @version: v1.0
+ */
 @Slf4j
 @Controller
 public class CollectLoggerController {

@@ -2,6 +2,13 @@ package cn.xiaows.logs.common;
 
 import java.util.List;
 
+/**
+ *
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:47
+ * @version: v1.0
+ */
 public class LoggerEntity {
     private List<Logger> loggers;
 

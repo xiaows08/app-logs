@@ -6,6 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * 测试hive jdbc连接
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:57
+ * @version: v1.0
+ */
 public class HiveTest {
     public static void main(String[] args) {
 

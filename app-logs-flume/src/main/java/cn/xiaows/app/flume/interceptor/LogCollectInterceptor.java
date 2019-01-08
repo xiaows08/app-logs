@@ -12,7 +12,11 @@ import static org.apache.flume.interceptor.HostInterceptor.Constants.PRESERVE_DF
 
 /**
  * 自定义拦截器
- *  从 kafka 多个 topic 中的数据解析出 目标存储路径
+ * 从 kafka 多个 topic 中的数据解析出 目标存储路径
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:47
+ * @version: v1.0
  */
 public class LogCollectInterceptor implements Interceptor {
     private final boolean preserveExisting;

@@ -1,5 +1,11 @@
 package cn.xiaows.applogs.dubbo.provider.entity;
 
+/**
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:59
+ * @version: v1.0
+ */
 public class User {
     /**
      *

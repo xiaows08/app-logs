@@ -14,6 +14,13 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 
+/**
+ *
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:53
+ * @version: v1.0
+ */
 @Slf4j
 public class HttpUtils {
 

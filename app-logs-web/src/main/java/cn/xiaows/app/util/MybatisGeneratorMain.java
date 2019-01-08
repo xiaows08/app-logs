@@ -10,6 +10,13 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * mybatis generator 代码生成器
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:55
+ * @version: v1.0
+ */
 public class MybatisGeneratorMain {
 
 	public static void main(String[] args) throws Exception {

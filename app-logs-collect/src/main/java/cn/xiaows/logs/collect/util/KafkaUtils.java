@@ -16,6 +16,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ *
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:47
+ * @version: v1.0
+ */
 @Slf4j
 public class KafkaUtils {
 

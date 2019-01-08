@@ -6,6 +6,13 @@ import org.apache.hadoop.hive.ql.exec.UDF;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ *
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:47
+ * @version: v1.0
+ */
 @Description
 public class FormatTimeUDF extends UDF {
 

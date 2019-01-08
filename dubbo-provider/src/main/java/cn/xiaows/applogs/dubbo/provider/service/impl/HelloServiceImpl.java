@@ -7,6 +7,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:57
+ * @version: v1.0
+ */
 @Component
 @Service
 public class HelloServiceImpl implements HelloService {

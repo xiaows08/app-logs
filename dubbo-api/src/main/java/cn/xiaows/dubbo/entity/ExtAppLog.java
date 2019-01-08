@@ -2,6 +2,12 @@ package cn.xiaows.dubbo.entity;
 
 import java.io.Serializable;
 
+/**
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:57
+ * @version: v1.0
+ */
 public class ExtAppLog implements Serializable {
     private String appchannel;
     private String appplatfrom;

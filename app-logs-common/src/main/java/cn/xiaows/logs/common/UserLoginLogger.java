@@ -1,5 +1,12 @@
 package cn.xiaows.logs.common;
 
+/**
+ *
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:47
+ * @version: v1.0
+ */
 public class UserLoginLogger extends BaseLogger{
     private String orgName;
     private String iamOpenId;

@@ -2,6 +2,13 @@ package cn.xiaows.logs.common;
 
 import java.util.Date;
 
+/**
+ *
+ *
+ * @author: xiaows
+ * @create: 2019-01-08 14:47
+ * @version: v1.0
+ */
 public class UserActiveLogger extends BaseLogger {
     private String username;
     private String userId;
