@@ -45,7 +45,7 @@
 zookeeper -> kafka -> flume -> hdfs -> hive -> spark
 
 ---
-### Zookeeper
+### Zookeeper v3.4.10
 - 编写集群启动脚本 [$ZOOKEEPER_HOME/cluster-zk.sh]
 ```bash
 #!/bin/bash
@@ -65,29 +65,56 @@ $ZOOKEEPER_HOME/cluster-zk.sh start
 ```
 
 ---
-### Kafka
-- 启动 kafka
+### Kafka v2.11-1.0
+- 启动kafka集群脚本[$KAFKA_HOME/cluster-kafka.sh]
 ```bash
+#!/bin/bash
+if [ $# = 0 ]; then
+    echo "Please input commod of kafka {start|stop}"
+    exit 1
+fi
+
+for i in 1 2 3; do
+    ssh kafka-$i sed -i "s/broker.id=[0-9]*/broker.id=$i/g" $KAFKA_HOME/config/server.properties;
+    ssh kafka-$i $KAFKA_HOME/bin/kafka-server-$1.sh -daemon $KAFKA_HOME/config/server.properties
+done
+
+echo "$KAFKA_HOME/bin/kafka-topics.sh --zookeeper zk-1:2181,zk-2:2181,zk-3:2181 --list"
+echo "$KAFKA_HOME/bin/kafka-topics.sh --zookeeper zk-1:2181,zk-2:2181,zk-3:2181 --create --replication-factor 2 --partitions 3 --topic mytopic"
+echo "$KAFKA_HOME/bin/kafka-console-producer.sh --broker-list kafka-1:9092 --topic mytopic"
+echo "$KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server kafka-1:9092 --topic mytopic"
 
 ```
-- 创建 topic
+- 启动kafka集群
 ```bash
-
+$KAFKA_HOME/cluster-kafka.sh start
 ```
-- 启动控制台消费者
+
+- kafka常用命令
 ```bash
+# 查看topic
+/usr/local/kafka_2.11-2.0.0/bin/kafka-topics.sh --zookeeper zk-1:2181,zk-2:2181,zk-3:2181 --list
+
+# 创建 topic
+/usr/local/kafka_2.11-2.0.0/bin/kafka-topics.sh --zookeeper zk-1:2181,zk-2:2181,zk-3:2181 --create --replication-factor 2 --partitions 3 --topic mytopic
+
+# 启动控制台生产者
+/usr/local/kafka_2.11-2.0.0/bin/kafka-console-producer.sh --broker-list kafka-1:9092 --topic mytopic
+#>
+# 启动控制台消费者
+/usr/local/kafka_2.11-2.0.0/bin/kafka-console-consumer.sh --bootstrap-server kafka-1:9092 --topic mytopic
 
 ```
 
 ---
-### Hadoop
+### Hadoop v2.8.3
 - 启动 hdfs
 ```bash
 start-dfs.sh
 ```
 
 ---
-### Flume
+### Flume v1.8
 - 配置 $FLUME_HOME/conf/kafka-c_hdfs-k.conf
 ```yaml
 # kafka Channel + HDFS sink(without sources)
@@ -147,7 +174,7 @@ scp -r flume-libs/* flume-1:/usr/local/flume-1.8.0-bin/lib/
 ```
 
 ---
-### Hive
+### Hive v1.2 | v2.3
 - 配置 $HIVE_HOME/conf/hive-site.xml
 ```xml
 <configuration>
@@ -206,7 +233,7 @@ create external table ext_app_log(
   tenantId string
 ) partitioned by (ym string, day string, hm string)
  row format serde 'org.apache.hive.hcatalog.data.JsonSerDe' stored as textfile;
- 
+
 ```
 - 从 HDFS 中加载数据
 ```sql
@@ -255,19 +282,18 @@ echo '===========> load_data.sql executed done!!!'
 ```bash
 # m h dom mon dow user	command
 * * * * * root /root/crontab/load_data.sh >> /root/crontab/load_data.log
-```
 
+```
 - 启动 crontab 服务
 ```bash
-service crond status
 service crond start
+service crond status
 ```
-注: docker 容器中 crontab 启动不起来...
-
+注: docker 容器中 crontab 启动不起来...(上次不知道怎么又好了O_O#)
 
 - 上传 app-logs-hive-1.0.0-SNAPSHOT.jar包到 HDFS 中
 ```bash
-hsdf dfs -put app-logs-hive-1.0.0-SNAPSHOT.jar hdfs://hadoop-1:9000/user/root/ 
+hsdf dfs -put app-logs-hive-1.0.0-SNAPSHOT.jar hdfs://hadoop-1:9000/user/root/
 ```
 - 在 beeline 中向 hive 注册 UDF 函数
 ```sql
@@ -276,20 +302,21 @@ create function getdaybegin as 'cn.xiaows.hive.udf.DayBeginUDF' using jar 'hdfs:
 create function getweekbegin as 'cn.xiaows.hive.udf.WeekBeginUDF' using jar 'hdfs://hadoop-1:9000/user/root/app-logs-hive-1.0.0-SNAPSHOT.jar'
 create function getmonthbegin as 'cn.xiaows.hive.udf.MonthBeginUDF' using jar 'hdfs://hadoop-1:9000/user/root/app-logs-hive-1.0.0-SNAPSHOT.jar'
 ```
+
 - 检测 Hive 元数据库
 ```sql
-select * from funcs;
-select * from func_ru;
+mysql> select * from funcs;
+mysql> select * from func_ru;
 -- 测试 UDF
-select formattime();
-select getdaybegin();
-select getweekbegin(-1);
-select getmonthbegin();
-select formattime(getmonthbegin(1));
+hive> select formattime();
+hive> select getdaybegin();
+hive> select getweekbegin(-1);
+hive> select getmonthbegin();
+hive> select formattime(getmonthbegin(1));
 ```
 
 ---
-### Spark
+### Spark v2.2.0
 - 启动thriftserver
 ```bash
 $SPARK_HOME/sbin/start-thriftserver.sh --master spark://spark-1:7077
@@ -300,5 +327,12 @@ netstat -nultp | grep 10000
 
 
 ---
+- 同步时间
+```bash
 echo "Asia/Shanghai" > /etc/timezone
 dpkg-reconfigure -f nonineteractive tzdata
+```
+
+
+pv:
+select page, count(*) from logs where year=2019 and month=01 and day=01 group by page;
