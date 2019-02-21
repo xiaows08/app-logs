@@ -101,8 +101,8 @@ $KAFKA_HOME/cluster-kafka.sh start
 # 启动控制台生产者
 /usr/local/kafka_2.11-2.0.0/bin/kafka-console-producer.sh --broker-list kafka-1:9092 --topic mytopic
 #>
-# 启动控制台消费者
-/usr/local/kafka_2.11-2.0.0/bin/kafka-console-consumer.sh --bootstrap-server kafka-1:9092 --topic mytopic
+# 启动控制台消费者 (--from-beginning 从头开始消费)
+/usr/local/kafka_2.11-2.0.0/bin/kafka-console-consumer.sh --bootstrap-server kafka-1:9092 --topic mytopic --from-beginning
 
 ```
 
